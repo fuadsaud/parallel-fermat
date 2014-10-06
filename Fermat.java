@@ -4,16 +4,39 @@ import edu.rit.pj2.LongVbl;
 import edu.rit.pj2.LongLoop;
 import edu.rit.pj2.Task;
 
+/**
+ * This class is resbonsible for calculating
+ */
 class Fermat extends Task {
     private LongVbl witnessesCount;
 
+    /**
+     * Main task execution method.
+     *
+     * @param args list of arguments for this tasks. It is supposed to contain a single element,
+     * a string representation of a long integer p.
+     */
     public void main(String[] args) {
+        if (args.lenght != 1) {
+            usage();
+
+            System.exit(1);
+        }
+
         Long p = Long.valueOf(args[0]);
-        Long witnessesCount = call(p);
+
+        Long witnessesCount = countWitnesses(p);
+
         System.out.println(witnessesCount);
     }
 
-    public Long call(Long p) {
+    /**
+     * Count the number of witnesses for a given number p.
+     *
+     * @param p the subject number for which to count the witnesses.
+     * @return the count of witnesses for the given number.
+     */
+    private Long countWitnesses(Long p) {
         this.witnessesCount = new LongVbl.Sum(0);
 
         parallelFor(0L, p - 1).exec(new LongLoop() {
@@ -31,12 +54,37 @@ class Fermat extends Task {
         return witnessesCount.item;
     }
 
-    public Boolean isWitness(BigInteger p, BigInteger a) {
+    /**
+     * Check if a BigInteger a is a witness for a BigInteger p.
+     *
+     * @param p the subject number for which to check the witness against.
+     * @param a the candidate witness to check.
+     *
+     * @return whether a is a witness for p.
+     */
+    private Boolean isWitness(BigInteger p, BigInteger a) {
         return a.modPow(p, p).compareTo(a) != 0;
     }
 
-    public Boolean isWitness(Long p, Long a) {
+    /**
+     * Check if a Long a is a witness for a Long p.
+     *
+     * @param p the subject number for which to check the witness against.
+     * @param a the candidate witness to check.
+     *
+     * @return whether a is a witness for p.
+     */
+    private Boolean isWitness(Long p, Long a) {
         return isWitness(BigInteger.valueOf(p), BigInteger.valueOf(a));
     }
-}
 
+    /**
+     * Print program usage info to stdout.
+     */
+    private void usage() {
+        System.out.println("USAGE:");
+        System.out.println("\tjava pj2 Fermat <P>");
+        System.out.println("\t\t<P>: the number to be test");
+        System.out.println("\n\t\tExample: java pj2 Fermat 512461");
+    }
+}
