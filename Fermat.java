@@ -17,13 +17,21 @@ class Fermat extends Task {
      * a string representation of a long integer p.
      */
     public void main(String[] args) {
-        if (args.lenght != 1) {
+        if (args.length != 1) {
             usage();
 
             System.exit(1);
         }
 
-        Long p = Long.valueOf(args[0]);
+        Long p = 0L;
+
+        try {
+            p = Long.valueOf(args[0]);
+        } catch (NumberFormatException e) {
+            System.err.println("Cannot parse given number: " + args[0]);
+
+            System.exit(2);
+        }
 
         Long witnessesCount = countWitnesses(p);
 
@@ -37,7 +45,7 @@ class Fermat extends Task {
      * @return the count of witnesses for the given number.
      */
     private Long countWitnesses(Long p) {
-        this.witnessesCount = new LongVbl.Sum(0);
+        this.witnessesCount = new LongVbl.Sum(0L);
 
         parallelFor(0L, p - 1).exec(new LongLoop() {
             private LongVbl count;
