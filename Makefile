@@ -5,10 +5,11 @@ OUTDIR    = bin
 MAINCLASS = Fermat
 MAINFILE  = $(MAINCLASS).java
 CLASSPATH = .:./pj2.jar
+TESTSFILE = ../tests.bats
 P         = 512461
 
 test: classes
-	cd bin; ../tests
+	cd bin; bats $(TESTSFILE)
 run: classes
 	cd bin; java -classpath .:../pj2.jar pj2 Fermat $(P)
 classes: clean outdir

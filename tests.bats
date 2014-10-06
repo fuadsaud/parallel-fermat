@@ -46,3 +46,18 @@ fermat="java -classpath .:../pj2.jar pj2 Fermat"
   result="$($fermat 1000003)"
   [ "$result" -eq 0 ]
 }
+
+@test "no argument" {
+  run $fermat
+  [ "$status" -eq 1 ]
+}
+
+@test "many arguments" {
+  run $fermat 10 lala
+  [ "$status" -eq 1 ]
+}
+
+@test "bad argument" {
+  run $fermat dijd
+  [ "$status" -eq 2 ]
+}
