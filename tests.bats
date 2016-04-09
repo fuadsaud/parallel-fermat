@@ -2,9 +2,14 @@
 
 fermat="java -classpath .:../pj2.jar pj2 Fermat"
 
-@test "512461" {
-  result="$($fermat 512461)"
-  [ "$result" -eq 0 ]
+@test "garbage input" {
+  result="$($fermat garbage)"
+  [ "$result" -eq 1 ]
+}
+
+@test "2147483648" {
+  result="$($fermat 2147483648)"
+  [ "$result" -eq 2 ]
 }
 
 @test "524287" {

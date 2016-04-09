@@ -10,8 +10,7 @@ import edu.rit.pj2.Task;
  *
  * @author Fuad Saud <ffs3415@rit.edu>
  */
-class Fermat extends Task {
-    private LongVbl witnessesCount;
+class Fermat extends Task { private LongVbl witnessesCount;
 
     /**
      * Main task execution method.
