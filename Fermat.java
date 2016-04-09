@@ -5,7 +5,7 @@ import edu.rit.pj2.LongLoop;
 import edu.rit.pj2.Task;
 
 /**
- * This class is resbonsible for couting the number of witnesses of the Fermat's Little Theorem
+ * This class is resbonsible for counting the number of witnesses of the Fermat's Little Theorem
  * for a given number.
  *
  * @author Fuad Saud <ffs3415@rit.edu>
